@@ -1,4 +1,4 @@
-package com.projetoFinal.demo;
+package com.projetoFinal.centralErros;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
