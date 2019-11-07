@@ -1,8 +1,8 @@
 package com.projetoFinal.centralErros.service;
 
 
+import com.projetoFinal.centralErros.repository.EnvironmentRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

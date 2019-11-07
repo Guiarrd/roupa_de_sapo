@@ -1,5 +1,6 @@
 package com.projetoFinal.centralErros.service;
 
+import com.projetoFinal.centralErros.repository.LevelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

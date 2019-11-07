@@ -1,8 +1,8 @@
 package com.projetoFinal.centralErros.service;
 
 
+import com.projetoFinal.centralErros.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
