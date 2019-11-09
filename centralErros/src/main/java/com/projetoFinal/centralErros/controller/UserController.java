@@ -29,8 +29,8 @@ public class UserController {
         return new ResponseEntity <>(userService.findAllUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<?> findUserById(@PathVariable Long userId){
+    @RequestMapping(method = RequestMethod.GET, params = "id")
+    public ResponseEntity<?> findUserById(@RequestParam(value="id") Long userId){
         return new ResponseEntity<>(userService.findUserById(userId), HttpStatus.OK);
     }
 
@@ -39,8 +39,9 @@ public class UserController {
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @GetMapping("/{email}")
-    public ResponseEntity<?> findByEmail(@PathVariable String email) {
+
+    @RequestMapping(method = RequestMethod.GET, params = "email")
+    public ResponseEntity<?> findByEmail(@RequestParam(value="email") String email) {
         return new ResponseEntity<>(userService.findByEmail(email), HttpStatus.OK);
     }
 }
