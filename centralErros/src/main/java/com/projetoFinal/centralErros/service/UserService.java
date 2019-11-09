@@ -1,9 +1,11 @@
 package com.projetoFinal.centralErros.service;
 
 
+import com.projetoFinal.centralErros.model.Log;
 import com.projetoFinal.centralErros.model.User;
 import com.projetoFinal.centralErros.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +19,7 @@ public class UserService {
 
     //Encontra usuário por id
     public User findUserById(Long id) {
-        return userRepository.findById(id).map(userRepository.findById(id)::get)
-                .orElseThrow("No user found by id");
-
+        return userRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("No user found by id",User.class.getName()));
     }
     //Retorna todos os usuários
     public List<User> findAllUsers() {
@@ -27,9 +27,7 @@ public class UserService {
     }
 
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email).map(userRepository.findByEmail(email)::get)
-                .orElseThrow("No user found by email");
-
+        return userRepository.findByEmail(email).orElseThrow(()-> new ObjectNotFoundException("No user found by email",User.class.getName()));
     }
     //Cria usuário/atualiza usuário
     public void saveUser(User user) {
@@ -37,8 +35,7 @@ public class UserService {
     }
     //Deleta usuário por id
     public void deleteUser(Long id) {
-        User user = userRepository.findById(id).map(userRepository.findById(id)::get)
-                .orElseThrow("User does not exist");
+        User user = userRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("User does not exist",User.class.getName()));
         userRepository.delete(user);
     }
 

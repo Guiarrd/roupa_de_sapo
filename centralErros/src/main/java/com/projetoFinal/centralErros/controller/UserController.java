@@ -1,6 +1,7 @@
 package com.projetoFinal.centralErros.controller;
 
 
+import com.projetoFinal.centralErros.model.User;
 import com.projetoFinal.centralErros.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class UserController {
         return new ResponseEntity<>(userService.findUserById(userId), HttpStatus.OK);
     }
 
-    @PutMapping("/delete/{userId}")
+    @DeleteMapping("/delete/{userId}")
     public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

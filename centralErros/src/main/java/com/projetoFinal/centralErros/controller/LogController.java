@@ -1,5 +1,7 @@
 package com.projetoFinal.centralErros.controller;
 
+
+import com.projetoFinal.centralErros.model.Log;
 import com.projetoFinal.centralErros.service.LogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ public class LogController {
 
     @GetMapping("/list")
     public ResponseEntity<?> findAllLogs() {
-        return ResponseEntity <>(logService.findAllLogs(), HttpStatus.OK)
+        return new ResponseEntity <>(logService.findAllLogs(), HttpStatus.OK);
     }
 
     @GetMapping("/list/{logId}")
