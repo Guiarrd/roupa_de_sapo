@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/central-de-erros")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -24,10 +24,14 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{userId}")
     public ResponseEntity<?> findUserById(@PathVariable Long userId){
-        userService.findUserById(userId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(userService.findUserById(userId), HttpStatus.OK);
     }
 
+    @PutMapping("/delete/{userId}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
