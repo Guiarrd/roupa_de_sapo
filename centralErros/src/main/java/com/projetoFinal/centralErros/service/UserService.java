@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -21,6 +22,7 @@ public class UserService {
     public User findUserById(Long id) {
         return userRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("No user found by id",User.class.getName()));
     }
+
     //Retorna todos os usuários
     public List<User> findAllUsers() {
         return userRepository.findAll();

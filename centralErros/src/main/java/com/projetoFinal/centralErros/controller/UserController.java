@@ -4,6 +4,7 @@ package com.projetoFinal.centralErros.controller;
 import com.projetoFinal.centralErros.model.User;
 import com.projetoFinal.centralErros.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,5 +34,9 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("/{email}")
+    public ResponseEntity<?> findByEmail(@PathVariable String email) {
+        return new ResponseEntity<>(userService.findByEmail(email), HttpStatus.OK);
     }
 }
