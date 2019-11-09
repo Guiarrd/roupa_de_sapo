@@ -48,7 +48,7 @@ public class Log implements Serializable {
 
     @Column
     @NotNull
-    //@Size(min = 0)
+     //@Size(min = 0)
     private Long events = 0L;
 
     @Column(name = "created_at", updatable = false)
