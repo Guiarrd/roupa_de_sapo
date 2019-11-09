@@ -31,9 +31,15 @@ public class LogService {
     public void saveLog(Log log) {
         logRepository.save(log);
     }
-    public List<Log> findAllByEnvironmentOrderLevel(EnvironmentEnum env, LevelEnum levelEnum){
+    public List<Log> findAllOrderByLevel(String level){
+        return logRepository.findAllOrderByLevel(LevelEnum.valueOf(level));
+    }
+    public List<Log> findAllByEnvironment(String env){
+        return logRepository.findAllByEnvironment(EnvironmentEnum.valueOf(env));
+    }
+    public List<Log> findAllByEnvironmentOrderLevel(String env, String levelEnum){
 
-        return logRepository.findAllByEnvironmentOrderLevel(env,levelEnum);
+        return logRepository.findAllByEnvironmentOrderLevel(EnvironmentEnum.valueOf(env),LevelEnum.valueOf(levelEnum));
 
     }
 
