@@ -1,5 +1,6 @@
 package com.projetoFinal.centralErros.controller;
 
+
 import com.projetoFinal.centralErros.model.Log;
 import com.projetoFinal.centralErros.service.LogService;
 import lombok.RequiredArgsConstructor;
