@@ -58,7 +58,7 @@ public class Log implements Serializable {
 
     @Column
     @NotNull
-    private Boolean archieved = false;
+    private Boolean archived = false;
 
     @Enumerated(EnumType.STRING)
     private LevelEnum levelEnum;

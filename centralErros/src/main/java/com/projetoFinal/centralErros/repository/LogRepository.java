@@ -15,7 +15,7 @@ public interface LogRepository extends JpaRepository<Log, Long> {
 
     //traz todos os Logs baseado na opção que o usuário escolher nas caixas de seleção de environment e level
 
-    @Query(value = "Select l from Log l where l.environmentEnum=?1 order by l.levelEnum=?2")
+    @Query(value = "Select l from Log l where l.environmentEnum=?1 order by ?2")
     List<Log> findAllByEnvironmentOrderLevel(EnvironmentEnum env, LevelEnum levelEnum);
 
     @Query(value = "Select l from Log l where l.environmentEnum=?1")
@@ -29,7 +29,7 @@ public interface LogRepository extends JpaRepository<Log, Long> {
     List<Log> findAllByArchieved();
 
 
-    @Query(value = "Select l from Log l order by l.levelEnum=?2")
+    @Query(value = "Select l from Log l order by ?2")
     List<Log> findAllOrderByLevel(LevelEnum levelEnum);
 
 
