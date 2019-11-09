@@ -13,11 +13,17 @@ public class LevelService {
 
     //Encontra nível por id
     public Level findLevelById(Long id) {
-        return levelRepository.findById(id);
+        return levelRepository.findById(id).map(levelRepository.findById(id)::get)
+                .orElseThrow("No level found by id");
+
     }
     //Retorna todos os níveis
     public List<Level> findAllLevels() {
         return levelRepository.findAll();
+    }
+    public Level findByLog(Log log) {
+        return levelRepository.findByLog(log).map(levelRepository.findByLog(log)::get)
+                .orElseThrow("No level found by Log");
     }
     //Cria nível/atualiza nível
     public void saveLevel(Level level) {
@@ -25,7 +31,6 @@ public class LevelService {
     }
     //Deleta nível por id
     public void deleteLevel(Long id) {
-        Level level = findLevelById(id);
-        levelRepository.delete(level);
+        levelRepository.delete(findLevelById(id));
     }
 }
