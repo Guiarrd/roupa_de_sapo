@@ -15,17 +15,25 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/central-de-erros")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
 
-
     @PostMapping
-    public ResponseEntity<?> salvar(@Valid @RequestBody User user) {
+    public ResponseEntity<?> saveUser(@Valid @RequestBody User user){
         userService.saveUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> findUserById(@PathVariable Long userId){
+        return new ResponseEntity<>(userService.findUserById(userId), HttpStatus.OK);
+    }
 
+    @PutMapping("/delete/{userId}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
