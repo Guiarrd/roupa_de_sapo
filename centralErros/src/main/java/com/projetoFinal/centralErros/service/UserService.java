@@ -1,10 +1,13 @@
 package com.projetoFinal.centralErros.service;
 
 
+import com.projetoFinal.centralErros.model.User;
 import com.projetoFinal.centralErros.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))

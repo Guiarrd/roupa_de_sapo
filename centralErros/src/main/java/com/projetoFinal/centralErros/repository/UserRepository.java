@@ -1,5 +1,6 @@
 package com.projetoFinal.centralErros.repository;
 
+import com.projetoFinal.centralErros.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
