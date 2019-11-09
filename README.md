@@ -16,5 +16,5 @@ Com o *pull request* criado caso não haja conflitos aperte no botão de **merge
 Abra o intelliJ, execute os comandos: <br />
 - ```git checkout staging``` -> entra na branch staging  <br />
 - ```git pull origin staging``` -> atualiza seu repositório local com as modificações da staging <br />
-- ```git checkout nome_da_sua_branch_de_trabalho``` -> cria e entra na sua branch de trabalho <br />
+- ```git checkout nome_da_sua_branch_de_trabalho``` -> entra na sua branch de trabalho <br />
 No canto inferior direito na barra de navegação click em Git: nome_da_sua_branch, no menu que abrir selecione a branch staging e aperte em *Merge into current*. Resolva os conflitos que surgirem e faça um **push**.
