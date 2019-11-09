@@ -14,11 +14,19 @@ public class UserService {
 
     //Encontra usuário por id
     public User findUserById(Long id) {
-        return userRepository.findById(id);
+        return userRepository.findById(id).map(userRepository.findById(id)::get)
+                .orElseThrow("No user found by id");
+
     }
     //Retorna todos os usuários
     public List<User> findAllUsers() {
         return userRepository.findAll();
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).map(userRepository.findByEmail(email)::get)
+                .orElseThrow("No user found by email");
+
     }
     //Cria usuário/atualiza usuário
     public void saveUser(User user) {
@@ -26,7 +34,8 @@ public class UserService {
     }
     //Deleta usuário por id
     public void deleteUser(Long id) {
-        User user = findUserById(id);
+        User user = userRepository.findById(id).map(userRepository.findById(id)::get)
+                .orElseThrow("User does not exist");
         userRepository.delete(user);
     }
 
