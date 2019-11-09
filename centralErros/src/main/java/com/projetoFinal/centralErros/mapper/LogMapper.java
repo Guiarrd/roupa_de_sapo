@@ -18,7 +18,7 @@ public class LogMapper {
         logDTO.setId(log.getId());
         logDTO.setTitle(log.getTitle());
         logDTO.setDescription(log.getDescription());
-        logDTO.setArchieved(log.getArchieved());
+        logDTO.setArchieved(log.getArchived());
         logDTO.setOrigin(log.getOrigin());
         logDTO.setEnvironmentEnum(log.getEnvironmentEnum());
         logDTO.setLevelEnum(log.getLevelEnum());
@@ -32,7 +32,7 @@ public class LogMapper {
         log.setId(logDTO.getId());
         log.setTitle(logDTO.getTitle());
         log.setDescription(logDTO.getDescription());
-        log.setArchieved(logDTO.getArchieved());
+        log.setArchived(logDTO.getArchieved());
         log.setOrigin(logDTO.getOrigin());
         log.setEnvironmentEnum(logDTO.getEnvironmentEnum());
         log.setLevelEnum(logDTO.getLevelEnum());
