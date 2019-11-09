@@ -14,7 +14,8 @@ public class LogService {
 
     //Encontra log por id
     public Log findLogById(Long id) {
-        return logRepository.findById(id);
+        return logRepository.findById(id).map(logRepository.findById(id)::get)
+                .orElseThrow("No log found by id");
     }
     //Retorna todos os logs
     public List<Log> findAllLogs() {
@@ -26,7 +27,8 @@ public class LogService {
     }
     //Deleta log por id
     public void deleteUser(Long id) {
-        Log log = findLogById(id);
+        Log log = logRepository.findById(id).map(logRepository.findById(id)::get)
+                .orElseThrow("Log does not exist");
         logRepository.delete(log);
     }
 }
