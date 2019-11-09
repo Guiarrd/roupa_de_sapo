@@ -24,6 +24,10 @@ public class UserController {
         userService.saveUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    @GetMapping("/list")
+    public ResponseEntity<?> findAllUsers() {
+        return new ResponseEntity <>(userService.findAllUsers(), HttpStatus.OK);
+    }
 
     @GetMapping("/{userId}")
     public ResponseEntity<?> findUserById(@PathVariable Long userId){
