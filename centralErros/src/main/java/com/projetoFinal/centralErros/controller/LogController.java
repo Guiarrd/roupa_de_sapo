@@ -43,12 +43,12 @@ public class LogController {
     public ResponseEntity<?> findAllByEnvironmentOrderLevel(String env, String level) {
         return new ResponseEntity <>(logService.findAllByEnvironmentOrderLevel(env, level), HttpStatus.OK);
     }
-    @GetMapping("/filter")
-    public ResponseEntity<?> findAllByEnvironment(String env) {
+    @GetMapping("/filter/{env}")
+    public ResponseEntity<?> findAllByEnvironment(@PathVariable String env) {
         return new ResponseEntity <>(logService.findAllByEnvironment(env), HttpStatus.OK);
     }
-    @GetMapping("/filter")
-    public ResponseEntity<?> findAllOrderByLevel(String env) {
-        return new ResponseEntity <>(logService.findAllOrderByLevel(env), HttpStatus.OK);
+    @GetMapping("/filter/{level}")
+    public ResponseEntity<?> findAllOrderByLevel(@PathVariable String level) {
+        return new ResponseEntity <>(logService.findAllOrderByLevel(level), HttpStatus.OK);
     }
 }
