@@ -39,16 +39,17 @@ public class LogController {
         logService.deleteUser(logId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @GetMapping("/filter")
-    public ResponseEntity<?> findAllByEnvironmentOrderLevel(String env, String level) {
+
+    @RequestMapping(value="/filter",method = RequestMethod.GET, params = {"env","level"})
+    public ResponseEntity<?> findAllByEnvironmentOrderLevel(@RequestParam(value="env") String env,@RequestParam(value="level") String level) {
         return new ResponseEntity <>(logService.findAllByEnvironmentOrderLevel(env, level), HttpStatus.OK);
     }
 
-    @RequestMapping(name="/filter",method = RequestMethod.GET, params = "env")
+    @RequestMapping(value="/filter",method = RequestMethod.GET, params = "env")
     public ResponseEntity<?> findAllByEnvironment(@RequestParam(value="env") String env) {
         return new ResponseEntity <>(logService.findAllByEnvironment(env), HttpStatus.OK);
     }
-    @RequestMapping(name="/filter",method = RequestMethod.GET, params = "level")
+    @RequestMapping(value="/filter",method = RequestMethod.GET, params = "level")
     public ResponseEntity<?> findAllOrderByLevel(@RequestParam(value="level")String level) {
         return new ResponseEntity <>(logService.findAllOrderByLevel(level), HttpStatus.OK);
     }

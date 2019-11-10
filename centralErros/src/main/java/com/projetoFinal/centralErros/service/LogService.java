@@ -35,8 +35,10 @@ public class LogService {
         return logRepository.findAllOrderByLevel(LevelEnum.valueOf(level));
     }
     public List<Log> findAllByEnvironment(String env){
+
         return logRepository.findAllByEnvironment(EnvironmentEnum.valueOf(env));
     }
+
     public List<Log> findAllByEnvironmentOrderLevel(String env, String levelEnum){
 
         return logRepository.findAllByEnvironmentOrderLevel(EnvironmentEnum.valueOf(env),LevelEnum.valueOf(levelEnum));
