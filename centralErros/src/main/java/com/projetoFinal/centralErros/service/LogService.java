@@ -35,8 +35,10 @@ public class LogService {
         return logRepository.findAllOrderByLevel(LevelEnum.valueOf(level));
     }
     public List<Log> findAllByEnvironment(String env){
+
         return logRepository.findAllByEnvironment(EnvironmentEnum.valueOf(env));
     }
+
     public List<Log> findAllByEnvironmentOrderLevel(String env, String levelEnum){
 
         return logRepository.findAllByEnvironmentOrderLevel(EnvironmentEnum.valueOf(env),LevelEnum.valueOf(levelEnum));
@@ -49,10 +51,10 @@ public class LogService {
         return logRepository.findAllBySearch(search);
     }
 
-    //traz todos os Logs arquivados (archieved == true)
-    public List<Log> findAllByArchieved(){
+    //traz todos os Logs arquivados (archived == true)
+    public List<Log> findAllByArchived(){
 
-        return logRepository.findAllByArchieved();
+        return logRepository.findAllByArchived();
     }
     //Deleta log por id
     public void deleteUser(Long id) {

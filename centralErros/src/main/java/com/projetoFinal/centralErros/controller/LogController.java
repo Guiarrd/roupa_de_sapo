@@ -18,38 +18,52 @@ public class LogController {
 
     private final LogService logService;
 
-    @PostMapping
+    @PostMapping // acessar /log via POST para cadastrar um log
     public ResponseEntity<?> saveLog(@Valid @RequestBody Log log) {
         logService.saveLog(log);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/list")
+    @GetMapping() // acessar /log via GET para listar todos os logs
     public ResponseEntity<?> findAllLogs() {
         return new ResponseEntity <>(logService.findAllLogs(), HttpStatus.OK);
     }
 
-    @GetMapping("/list/{logId}")
+    @GetMapping("/{logId}") // acessar /log/id via GET para listar um log
     public ResponseEntity<?> findLogById(@PathVariable Long logId) {
         return new ResponseEntity<>(logService.findLogById(logId), HttpStatus.OK);
     }
 
-    @PutMapping("/delete/{logId}")
+    @PutMapping("/{id}") // acessar /log/id via PUT para atualizar um log
+    public ResponseEntity<?> updateLog(@Valid @RequestBody Log log, @PathVariable Long id) {
+        log.setId(id);
+        logService.saveLog(log);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/delete/{logId}") // acessar /log/delete/id via DELETE para deletar um log
     public ResponseEntity<?> deleteUser(@PathVariable Long logId) {
         logService.deleteUser(logId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @GetMapping("/filter")
-    public ResponseEntity<?> findAllByEnvironmentOrderLevel(String env, String level) {
+
+    @RequestMapping(value="/filter", method = RequestMethod.GET, params = "env") // acessar /log/filter?env=ENVIRONMENT via GET para listar os logs que pertencem ao ambiente especificado
+    public ResponseEntity<?> findAllByEnvironment(@RequestParam(value = "env", required = false) String env) {
+        return new ResponseEntity <>(logService.findAllByEnvironment(env), HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/filter", method = RequestMethod.GET, params = "level") // acessar /log/filter?level=LEVEL via GET para listar os logs ordenados pelo nível especificado
+    public ResponseEntity<?> findAllOrderByLevel(@RequestParam(value = "level", required = false) String level) {
+        return new ResponseEntity <>(logService.findAllOrderByLevel(level), HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/filter", method = RequestMethod.GET, params = {"env","level"}) // acessar /log/filter?env=ENVIRONMENT&level=LEVEL via GET para listar os logs que pertencem ao ambiente especificado, ordenados pelo nível especificado
+    public ResponseEntity<?> findAllByEnvironmentOrderLevel(@RequestParam(value = "env", required = false) String env, @RequestParam(value = "level", required = false) String level) {
         return new ResponseEntity <>(logService.findAllByEnvironmentOrderLevel(env, level), HttpStatus.OK);
     }
 
-    @RequestMapping(name="/filter",method = RequestMethod.GET, params = "env")
-    public ResponseEntity<?> findAllByEnvironment(@RequestParam(value="env") String env) {
-        return new ResponseEntity <>(logService.findAllByEnvironment(env), HttpStatus.OK);
-    }
-    @RequestMapping(name="/filter",method = RequestMethod.GET, params = "level")
-    public ResponseEntity<?> findAllOrderByLevel(@RequestParam(value="level")String level) {
-        return new ResponseEntity <>(logService.findAllOrderByLevel(level), HttpStatus.OK);
+    @GetMapping("/archived") // acessar /log/archived via GET para listar todos os logs arquivados
+    public ResponseEntity<?> findAllByArchived() {
+        return new ResponseEntity <>(logService.findAllByArchived(), HttpStatus.OK);
     }
 }
