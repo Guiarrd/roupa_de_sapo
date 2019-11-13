@@ -66,4 +66,19 @@ public class LogController {
     public ResponseEntity<?> findAllByArchived() {
         return new ResponseEntity <>(logService.findAllByArchived(), HttpStatus.OK);
     }
+
+    @RequestMapping(value="/search", method = RequestMethod.GET, params = {"level"}) // acessar /log/search?level=LEVEL via GET para listar os logs baseados no level que o usuário pesquisar na barra de buscas
+    public ResponseEntity<?> findAllByLevel(@RequestParam(value = "level", required = false) String level) {
+        return new ResponseEntity <>(logService.findAllByLevel(level), HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/search", method = RequestMethod.GET, params = {"description"}) // acessar /log/search?description=DESCRIPTION via GET para listar os logs baseados na description que o usuário pesquisar na barra de buscas
+    public ResponseEntity<?> findAllByDescription(@RequestParam(value = "description", required = false) String description) {
+        return new ResponseEntity <>(logService.findAllByDescription(description), HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/search", method = RequestMethod.GET, params = {"origin"}) // acessar /log/search?origin=ORIGIN via GET para listar os logs baseados na origin que o usuário pesquisar na barra de buscas
+    public ResponseEntity<?> findAllByOrigin(@RequestParam(value = "origin", required = false) String origin) {
+        return new ResponseEntity <>(logService.findAllByOrigin(origin), HttpStatus.OK);
+    }
 }
