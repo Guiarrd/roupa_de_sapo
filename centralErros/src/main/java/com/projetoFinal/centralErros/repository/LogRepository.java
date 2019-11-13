@@ -22,11 +22,13 @@ public interface LogRepository extends JpaRepository<Log, Long> {
     List<Log> findAllByEnvironment(EnvironmentEnum env);
 
     //traz os Logs baseado na pesquisa que o usuário fazer
-    @Query(value = "SELECT l FROM log l WHERE l.title LIKE '%?1%'",nativeQuery = true)
-    List<Log> findAllBySearch(String search);
+    List<Log> findAllByLevelEnumLike(LevelEnum levelEnum);
 
-    @Query(value = "Select l from Log l where l.archived=true")
-    List<Log> findAllByArchived();
+    List<Log> findAllByDescriptionContaining(String description);
+
+    List<Log> findAllByOriginContaining(String origin);
+
+    List<Log> findAllByArchivedTrue();
 
     @Query(value = "Select l from Log l order by CASE WHEN (l.levelEnum = ?1) THEN 1 END DESC")
     List<Log> findAllOrderByLevel(LevelEnum levelEnum);
