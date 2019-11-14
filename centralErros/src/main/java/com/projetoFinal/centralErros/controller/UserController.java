@@ -1,10 +1,8 @@
 package com.projetoFinal.centralErros.controller;
 
-
 import com.projetoFinal.centralErros.model.User;
 import com.projetoFinal.centralErros.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,29 +17,37 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping // acessar /user via POST para cadastrar um usuário
     public ResponseEntity<?> saveUser(@Valid @RequestBody User user){
         userService.saveUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    @GetMapping("/list")
+
+    @PutMapping("/{userId}") // acessar /user/id via PUT para atualizar um usuário
+    public ResponseEntity<?> updateUser(@Valid @RequestBody User user, @PathVariable Long userId) {
+        user.setId(userId);
+        userService.saveUser(user);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping // acessar /user via GET para listar todos os usuários
     public ResponseEntity<?> findAllUsers() {
         return new ResponseEntity <>(userService.findAllUsers(), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = "id")
-    public ResponseEntity<?> findUserById(@RequestParam(value="id") Long userId){
+    @GetMapping("/{userId}") // acessar /user/id via GET para listar um usuário
+    public ResponseEntity<?> findUserById(@PathVariable Long userId){
         return new ResponseEntity<>(userService.findUserById(userId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{userId}")
+    @DeleteMapping("/delete/{userId}") // acessar /delete/id via DELETE para deletar um usuário
     public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = "email")
-    public ResponseEntity<?> findByEmail(@RequestParam(value="email") String email) {
+    @RequestMapping(method = RequestMethod.GET, params = "email") // acessar /user?email=EMAIL via GET para listar um usuário pelo seu e-mail
+    public ResponseEntity<?> findByEmail(@RequestParam(value="email", required = false) String email) {
         return new ResponseEntity<>(userService.findByEmail(email), HttpStatus.OK);
     }
 }
