@@ -1,6 +1,7 @@
 package com.projetoFinal.centralErros.controller;
 
 
+import com.projetoFinal.centralErros.mapper.LogMapper;
 import com.projetoFinal.centralErros.model.Log;
 import com.projetoFinal.centralErros.service.LogService;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +27,12 @@ public class LogController {
 
     @GetMapping() // acessar /log via GET para listar todos os logs
     public ResponseEntity<?> findAllLogs() {
-        return new ResponseEntity <>(logService.findAllLogs(), HttpStatus.OK);
+        return new ResponseEntity <>(LogMapper.toListLog(logService.findAllLogs()), HttpStatus.OK);
     }
 
     @GetMapping("/{logId}") // acessar /log/id via GET para listar um log
     public ResponseEntity<?> findLogById(@PathVariable Long logId) {
-        return new ResponseEntity<>(logService.findLogById(logId), HttpStatus.OK);
+        return new ResponseEntity<>(LogMapper.toLog(logService.findLogById(logId)), HttpStatus.OK);
     }
 
     @PutMapping("/{id}") // acessar /log/id via PUT para atualizar um log
@@ -49,36 +50,36 @@ public class LogController {
 
     @RequestMapping(value="/filter", method = RequestMethod.GET, params = "env") // acessar /log/filter?env=ENVIRONMENT via GET para listar os logs que pertencem ao ambiente especificado
     public ResponseEntity<?> findAllByEnvironment(@RequestParam(value = "env", required = false) String env) {
-        return new ResponseEntity <>(logService.findAllByEnvironment(env), HttpStatus.OK);
+        return new ResponseEntity <>(LogMapper.toListLog(logService.findAllByEnvironment(env)), HttpStatus.OK);
     }
 
     @RequestMapping(value="/filter", method = RequestMethod.GET, params = "level") // acessar /log/filter?level=LEVEL via GET para listar os logs ordenados pelo nível especificado
     public ResponseEntity<?> findAllOrderByLevel(@RequestParam(value = "level", required = false) String level) {
-        return new ResponseEntity <>(logService.findAllOrderByLevel(level), HttpStatus.OK);
+        return new ResponseEntity <>(LogMapper.toListLog(logService.findAllOrderByLevel(level)), HttpStatus.OK);
     }
 
     @RequestMapping(value="/filter", method = RequestMethod.GET, params = {"env","level"}) // acessar /log/filter?env=ENVIRONMENT&level=LEVEL via GET para listar os logs que pertencem ao ambiente especificado, ordenados pelo nível especificado
     public ResponseEntity<?> findAllByEnvironmentOrderLevel(@RequestParam(value = "env", required = false) String env, @RequestParam(value = "level", required = false) String level) {
-        return new ResponseEntity <>(logService.findAllByEnvironmentOrderLevel(env, level), HttpStatus.OK);
+        return new ResponseEntity <>(LogMapper.toListLog(logService.findAllByEnvironmentOrderLevel(env, level)), HttpStatus.OK);
     }
 
     @GetMapping("/archived") // acessar /log/archived via GET para listar todos os logs arquivados
     public ResponseEntity<?> findAllByArchived() {
-        return new ResponseEntity <>(logService.findAllByArchived(), HttpStatus.OK);
+        return new ResponseEntity <>(LogMapper.toListLog(logService.findAllByArchived()), HttpStatus.OK);
     }
 
     @RequestMapping(value="/search", method = RequestMethod.GET, params = {"level"}) // acessar /log/search?level=LEVEL via GET para listar os logs baseados no level que o usuário pesquisar na barra de buscas
     public ResponseEntity<?> findAllByLevel(@RequestParam(value = "level", required = false) String level) {
-        return new ResponseEntity <>(logService.findAllByLevel(level), HttpStatus.OK);
+        return new ResponseEntity <>(LogMapper.toListLog(logService.findAllByLevel(level)), HttpStatus.OK);
     }
 
     @RequestMapping(value="/search", method = RequestMethod.GET, params = {"description"}) // acessar /log/search?description=DESCRIPTION via GET para listar os logs baseados na description que o usuário pesquisar na barra de buscas
     public ResponseEntity<?> findAllByDescription(@RequestParam(value = "description", required = false) String description) {
-        return new ResponseEntity <>(logService.findAllByDescription(description), HttpStatus.OK);
+        return new ResponseEntity <>(LogMapper.toListLog(logService.findAllByDescription(description)), HttpStatus.OK);
     }
 
     @RequestMapping(value="/search", method = RequestMethod.GET, params = {"origin"}) // acessar /log/search?origin=ORIGIN via GET para listar os logs baseados na origin que o usuário pesquisar na barra de buscas
     public ResponseEntity<?> findAllByOrigin(@RequestParam(value = "origin", required = false) String origin) {
-        return new ResponseEntity <>(logService.findAllByOrigin(origin), HttpStatus.OK);
+        return new ResponseEntity <>(LogMapper.toListLog(logService.findAllByOrigin(origin)), HttpStatus.OK);
     }
 }

@@ -1,5 +1,6 @@
 package com.projetoFinal.centralErros.controller;
 
+import com.projetoFinal.centralErros.mapper.UserMapper;
 import com.projetoFinal.centralErros.model.User;
 import com.projetoFinal.centralErros.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,12 +33,12 @@ public class UserController {
 
     @GetMapping // acessar /user via GET para listar todos os usuários
     public ResponseEntity<?> findAllUsers() {
-        return new ResponseEntity <>(userService.findAllUsers(), HttpStatus.OK);
+        return new ResponseEntity <>(UserMapper.toListUser(userService.findAllUsers()), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}") // acessar /user/id via GET para listar um usuário
     public ResponseEntity<?> findUserById(@PathVariable Long userId){
-        return new ResponseEntity<>(userService.findUserById(userId), HttpStatus.OK);
+        return new ResponseEntity<>(UserMapper.toUser(userService.findUserById(userId)), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{userId}") // acessar /delete/id via DELETE para deletar um usuário
@@ -48,6 +49,6 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET, params = "email") // acessar /user?email=EMAIL via GET para listar um usuário pelo seu e-mail
     public ResponseEntity<?> findByEmail(@RequestParam(value="email", required = false) String email) {
-        return new ResponseEntity<>(userService.findByEmail(email), HttpStatus.OK);
+        return new ResponseEntity<>(UserMapper.toUser(userService.findByEmail(email)), HttpStatus.OK);
     }
 }
