@@ -24,7 +24,7 @@ public class LogService {
 
     // Encontra log por id
     public LogDTO findLogById(Long id) {
-        return LogMapper.toLogDTO(logRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("No log found by id",Log.class.getName())));
+        return LogMapper.toLogDTO(logRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Nenhum registro encontrado.",Log.class.getName())));
     }
 
     // Retorna todos os logs
@@ -57,6 +57,8 @@ public class LogService {
 
         if (levelEnumOpt.isPresent()) {
             levelEnum = levelEnumOpt.get();
+        } else {
+            throw new ObjectNotFoundException("Nenhum registro encontrado para "+level, Log.class.getName());
         }
         return LogMapper.toListLogDTO(logRepository.findAllByLevelEnumLike(levelEnum));
     }
@@ -78,7 +80,7 @@ public class LogService {
 
     // Deleta Log por id
     public void deleteUser(Long id) {
-        Log log = logRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Log does not exist",Log.class.getName()));
+        Log log = logRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Nenhum registro encontrado.",Log.class.getName()));
         logRepository.delete(log);
     }
 }
