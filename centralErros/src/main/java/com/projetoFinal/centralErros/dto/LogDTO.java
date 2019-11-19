@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -25,9 +26,8 @@ public class LogDTO implements Serializable {
     private String description;
     @NotNull
     private String origin;
-    @NotNull
+    @Min(0)
     private Long events = 0L;
-    @NotNull
     private Boolean archieved = false;
     @Enumerated(EnumType.STRING)
     private LevelEnum levelEnum;
