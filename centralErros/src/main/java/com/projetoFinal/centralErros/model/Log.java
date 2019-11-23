@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -22,6 +23,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity
+@Table
 @EntityListeners(AuditingEntityListener.class)
 public class Log implements Serializable {
 
@@ -33,7 +35,7 @@ public class Log implements Serializable {
 
     @Column
     @NotNull
-    @Size(min = 20, max = 100)
+    @Size(max = 100)
     private String title;
 
     @Column
@@ -47,8 +49,7 @@ public class Log implements Serializable {
     private String origin;
 
     @Column
-    @NotNull
-    @Size(min = 0)
+    @Min(0)
     private Long events = 0L;
 
     @Column(name = "created_at", updatable = false)
@@ -57,7 +58,6 @@ public class Log implements Serializable {
     private LocalDate createdAt;
 
     @Column
-    @NotNull
     private Boolean archived = false;
 
     @Enumerated(EnumType.STRING)

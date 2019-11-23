@@ -24,6 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity
+@Table
 @EntityListeners(AuditingEntityListener.class)
 public class User implements Serializable {
 
