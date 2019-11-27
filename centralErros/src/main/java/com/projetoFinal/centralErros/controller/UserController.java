@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/user")
+@RequestMapping("/v1/user")
 public class UserController {
 
     private final UserService userService;
@@ -36,6 +36,7 @@ public class UserController {
 
     @GetMapping // acessar /user via GET para listar todos os usuários
     public ResponseEntity<List<User>> findAllUsers() {
+        System.out.println("Acessado /api/v1/user");
         return new ResponseEntity <>(UserMapper.toListUser(userService.findAllUsers()), HttpStatus.OK);
     }
 
