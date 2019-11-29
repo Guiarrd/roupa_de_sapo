@@ -55,14 +55,14 @@ public class LogController {
         return new ResponseEntity <>(LogMapper.toListLog(logService.findAllByEnvironment(env)), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/filter", method = RequestMethod.GET, params = "level") // acessar /log/filter?level=LEVEL via GET para listar os logs ordenados pelo nível especificado
-    public ResponseEntity<List<Log>> findAllOrderByLevel(@RequestParam(value = "level", required = false) String level) {
-        return new ResponseEntity <>(LogMapper.toListLog(logService.findAllOrderByLevel(level)), HttpStatus.OK);
+    @RequestMapping(value="/filter", method = RequestMethod.GET, params = "order") // acessar /log/filter?level=LEVEL via GET para listar os logs ordenados pelo nível especificado
+    public ResponseEntity<List<Log>> findAllOrderByLevel(@RequestParam(value = "order", required = false) String order) {
+        return new ResponseEntity <>(LogMapper.toListLog(logService.findAllOrderByParam(order)), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/filter", method = RequestMethod.GET, params = {"env","level"}) // acessar /log/filter?env=ENVIRONMENT&level=LEVEL via GET para listar os logs que pertencem ao ambiente especificado, ordenados pelo nível especificado
-    public ResponseEntity<List<Log>> findAllByEnvironmentOrderLevel(@RequestParam(value = "env", required = false) String env, @RequestParam(value = "level", required = false) String level) {
-        return new ResponseEntity <>(LogMapper.toListLog(logService.findAllByEnvironmentOrderLevel(env, level)), HttpStatus.OK);
+    @RequestMapping(value="/filter", method = RequestMethod.GET, params = {"env","order"}) // acessar /log/filter?env=ENVIRONMENT&level=LEVEL via GET para listar os logs que pertencem ao ambiente especificado, ordenados pelo nível especificado
+    public ResponseEntity<List<Log>> findAllByEnvironmentOrderByParam(@RequestParam(value = "env") String env, @RequestParam(value = "order") String order) {
+        return new ResponseEntity <>(LogMapper.toListLog(logService.findAllByEnvironmentOrderByParam(env, order)), HttpStatus.OK);
     }
 
     @GetMapping("/archived") // acessar /log/archived via GET para listar todos os logs arquivados

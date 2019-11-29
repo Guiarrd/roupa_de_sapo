@@ -12,6 +12,7 @@ import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -37,16 +38,26 @@ public class LogService {
         logRepository.save(log);
     }
 
-    public List<LogDTO> findAllOrderByLevel(String level){
-        return LogMapper.toListLogDTO(logRepository.findAllOrderByLevel(LevelEnum.valueOf(level)));
+    public List<LogDTO> findAllOrderByParam(String param){
+        if (param.equalsIgnoreCase("level")) {
+            return LogMapper.toListLogDTO(logRepository.findAllByOrderByLevelEnum());
+        } else if (param.equalsIgnoreCase("events")) {
+            return LogMapper.toListLogDTO(logRepository.findAllByOrderByEvents());
+        }
+        return new ArrayList<>();
     }
 
     public List<LogDTO> findAllByEnvironment(String env){
         return LogMapper.toListLogDTO(logRepository.findAllByEnvironment(EnvironmentEnum.valueOf(env)));
     }
 
-    public List<LogDTO> findAllByEnvironmentOrderLevel(String env, String levelEnum){
-        return LogMapper.toListLogDTO(logRepository.findAllByEnvironmentOrderLevel(EnvironmentEnum.valueOf(env),LevelEnum.valueOf(levelEnum)));
+    public List<LogDTO> findAllByEnvironmentOrderByParam(String env, String param){
+        if (param.equalsIgnoreCase("level")) {
+            return LogMapper.toListLogDTO(logRepository.findAllByEnvironmentEnumOrderByLevelEnum(EnvironmentEnum.valueOf(env)));
+        } else if (param.equalsIgnoreCase("events")) {
+            return LogMapper.toListLogDTO(logRepository.findAllByEnvironmentEnumOrderByEvents(EnvironmentEnum.valueOf(env)));
+        }
+        return new ArrayList<>();
     }
 
     // Traz os Logs baseado no level pesquisado pelo usuário
