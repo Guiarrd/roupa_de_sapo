@@ -50,12 +50,12 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("REST API")
-                .description("The REST API for demo swagger.").termsOfServiceUrl("")
-                .contact(new Contact("RICH LEE", "", "rich.lee@gmail.com"))
+        return new ApiInfoBuilder().title("Central de erros API REST")
+                .description("Api que busca centralizar os erros de um determinado usuário. Trabalho desenvolvido como projeto final do curso AceleraDev da codenation com suporte da Softplan").termsOfServiceUrl("")
+                .contact(new Contact("Squad Roupa de Sapo", "", ""))
                 .license("Apache License Version 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
-                .version("0.0.1")
+                .version("1.0")
                 .build();
     }
     private SecurityContext securityContext() {
