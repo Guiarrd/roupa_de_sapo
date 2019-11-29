@@ -1,6 +1,6 @@
+
 package com.projetoFinal.centralErros.controller;
 
-import com.projetoFinal.centralErros.dto.UserDTO;
 import com.projetoFinal.centralErros.mapper.UserMapper;
 import com.projetoFinal.centralErros.model.User;
 import com.projetoFinal.centralErros.service.UserService;
@@ -15,20 +15,19 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/v1/user")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
 
     @PostMapping // acessar /user via POST para cadastrar um usuário
-    public ResponseEntity<HttpStatus> saveUser(@Valid @RequestBody UserDTO userDTO){
-        userService.saveUser(UserMapper.toUser(userDTO));
+    public ResponseEntity<HttpStatus> saveUser(@Valid @RequestBody User user){
+        userService.saveUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{userId}") // acessar /user/id via PUT para atualizar um usuário
-    public ResponseEntity<HttpStatus> updateUser(@Valid @RequestBody UserDTO userDTO, @PathVariable Long userId) {
-        User user=UserMapper.toUser(userDTO);
+    public ResponseEntity<HttpStatus> updateUser(@Valid @RequestBody User user, @PathVariable Long userId) {
         user.setId(userId);
         userService.saveUser(user);
         return ResponseEntity.ok().build();
@@ -36,7 +35,6 @@ public class UserController {
 
     @GetMapping // acessar /user via GET para listar todos os usuários
     public ResponseEntity<List<User>> findAllUsers() {
-        System.out.println("Acessado /api/v1/user");
         return new ResponseEntity <>(UserMapper.toListUser(userService.findAllUsers()), HttpStatus.OK);
     }
 
@@ -51,7 +49,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping(params = "email") // acessar /user?email=EMAIL via GET para listar um usuário pelo seu e-mail
+    @RequestMapping(method = RequestMethod.GET, params = "email") // acessar /user?email=EMAIL via GET para listar um usuário pelo seu e-mail
     public ResponseEntity<User> findByEmail(@RequestParam(value="email", required = false) String email) {
         return new ResponseEntity<>(UserMapper.toUser(userService.findByEmail(email)), HttpStatus.OK);
     }
