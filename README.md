@@ -33,3 +33,8 @@ Na aba de authorization selecione *Basic Auth* e preencha os campos da seguinte 
 Você também pode criar um usuário na rota http://localhost:8080/user com um POST passando simplesmente o JSON contendo as informaçes do novo usuário e depois utilizar o email e senha cadastrados para conseguir um token e ficar autorizado a acessar as outras rotas da **API**.<br />
 
 Em posse de um token válido você pode acessar qualquer rota da **API** realizando as requisições com autorização do tipo Bearer Token.
+## Swagger
+
+Nesse projeto foi utilizado o editor Swagger para a validação e documentação da API desenvolvida pelos integrantes da squad. Nesse editor estão descritos todos os endpoints com os métodos que executam e os respectivos parâmetros. Inclui também os modelos do banco de dados utilizado.
+
+Pode ser acessado no endpoint: http://localhost:8080/swagger-ui.html
