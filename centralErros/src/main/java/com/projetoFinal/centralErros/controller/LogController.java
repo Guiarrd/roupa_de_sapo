@@ -51,17 +51,17 @@ public class LogController {
         logService.deleteUser(logId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @GetMapping(value="/filter",params = "env") // acessar /log/filter?env=ENVIRONMENT via GET para listar os logs que pertencem ao ambiente especificado
+    @GetMapping(value="/filterByEnvironment",params = "env") // acessar /log/filter?env=ENVIRONMENT via GET para listar os logs que pertencem ao ambiente especificado
     public ResponseEntity<List<Log>> findAllByEnvironment(@RequestParam(value = "env", required = false) String env) {
         return new ResponseEntity <>(LogMapper.toListLog(logService.findAllByEnvironment(env)), HttpStatus.OK);
     }
 
-    @GetMapping(value="/filter", params = "level") // acessar /log/filter?level=LEVEL via GET para listar os logs ordenados pelo nível especificado
+    @GetMapping(value="/filterByLevel", params = "level") // acessar /log/filter?level=LEVEL via GET para listar os logs ordenados pelo nível especificado
     public ResponseEntity<List<Log>> findAllOrderByLevel(@RequestParam(value = "level", required = false) String level) {
         return new ResponseEntity <>(LogMapper.toListLog(logService.findAllOrderByLevel(level)), HttpStatus.OK);
     }
 
-    @GetMapping(value="/filter", params = {"env","level"}) // acessar /log/filter?env=ENVIRONMENT&level=LEVEL via GET para listar os logs que pertencem ao ambiente especificado, ordenados pelo nível especificado
+    @GetMapping(value="/filterByEnvironmentByLevel", params = {"env","level"}) // acessar /log/filter?env=ENVIRONMENT&level=LEVEL via GET para listar os logs que pertencem ao ambiente especificado, ordenados pelo nível especificado
     public ResponseEntity<List<Log>> findAllByEnvironmentOrderLevel(@RequestParam(value = "env", required = false) String env, @RequestParam(value = "level", required = false) String level) {
         return new ResponseEntity <>(LogMapper.toListLog(logService.findAllByEnvironmentOrderLevel(env, level)), HttpStatus.OK);
     }
@@ -71,17 +71,17 @@ public class LogController {
         return new ResponseEntity <>(LogMapper.toListLog(logService.findAllByArchived()), HttpStatus.OK);
     }
 
-    @GetMapping(value="/search", params = {"level"}) // acessar /log/search?level=LEVEL via GET para listar os logs baseados no level que o usuário pesquisar na barra de buscas
+    @GetMapping(value="/searchByLevel", params = {"level"}) // acessar /log/search?level=LEVEL via GET para listar os logs baseados no level que o usuário pesquisar na barra de buscas
     public ResponseEntity<List<Log>> findAllByLevel(@RequestParam(value = "level", required = false) String level) {
         return new ResponseEntity <>(LogMapper.toListLog(logService.findAllByLevel(level)), HttpStatus.OK);
     }
 
-    @GetMapping(value="/search",  params = {"description"}) // acessar /log/search?description=DESCRIPTION via GET para listar os logs baseados na description que o usuário pesquisar na barra de buscas
+    @GetMapping(value="/searchByDescription",  params = {"description"}) // acessar /log/search?description=DESCRIPTION via GET para listar os logs baseados na description que o usuário pesquisar na barra de buscas
     public ResponseEntity<List<Log>> findAllByDescription(@RequestParam(value = "description", required = false) String description) {
         return new ResponseEntity <>(LogMapper.toListLog(logService.findAllByDescription(description)), HttpStatus.OK);
     }
 
-    @GetMapping(value="/search",  params = {"origin"}) // acessar /log/search?origin=ORIGIN via GET para listar os logs baseados na origin que o usuário pesquisar na barra de buscas
+    @GetMapping(value="/searchByOrigin",  params = {"origin"}) // acessar /log/search?origin=ORIGIN via GET para listar os logs baseados na origin que o usuário pesquisar na barra de buscas
     public ResponseEntity<List<Log>> findAllByOrigin(@RequestParam(value = "origin", required = false) String origin) {
         return new ResponseEntity <>(LogMapper.toListLog(logService.findAllByOrigin(origin)), HttpStatus.OK);
     }
