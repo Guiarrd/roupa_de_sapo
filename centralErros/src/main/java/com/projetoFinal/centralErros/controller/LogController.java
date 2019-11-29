@@ -23,7 +23,7 @@ public class LogController {
     private final LogService logService;
 
     @PostMapping // acessar /log via POST para cadastrar um log
-    public ResponseEntity<HttpStatus> saveLog(@Valid @RequestBody LogDTO logDTO) {
+    public ResponseEntity<HttpStatus> saveLog( @RequestBody LogDTO logDTO) {
         logService.saveLog(LogMapper.toLog(logDTO));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
