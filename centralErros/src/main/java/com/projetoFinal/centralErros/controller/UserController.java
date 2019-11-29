@@ -20,6 +20,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping // acessar /user via POST para cadastrar um usuário
     public ResponseEntity<HttpStatus> saveUser(@Valid @RequestBody UserDTO userDTO){
         userService.saveUser(UserMapper.toUser(userDTO));
