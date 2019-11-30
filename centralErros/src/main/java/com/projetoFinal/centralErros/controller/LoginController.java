@@ -20,7 +20,7 @@ import javax.validation.Valid;
 public class LoginController {
 
 
-    @PostMapping // acessar /log via POST para cadastrar um log
+    @PostMapping
     public ResponseEntity<HttpStatus> login(@Valid @RequestBody Object userData) {
         return new ResponseEntity<>(HttpStatus.OK);
 
