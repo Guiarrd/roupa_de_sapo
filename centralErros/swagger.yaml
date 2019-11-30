@@ -1,0 +1,13 @@
+swagger: "0.7.5"
+info:
+  version: "1.0.0"
+  title: Central erros
+host: localhost:8080
+basepath: /
+schemes:
+  - http
+consumes:
+  -application/json
+produces:
+  -application/json
+paths:

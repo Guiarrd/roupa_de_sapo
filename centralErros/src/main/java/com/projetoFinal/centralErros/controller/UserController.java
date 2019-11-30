@@ -1,5 +1,6 @@
 package com.projetoFinal.centralErros.controller;
 
+import com.projetoFinal.centralErros.dto.UserDTO;
 import com.projetoFinal.centralErros.mapper.UserMapper;
 import com.projetoFinal.centralErros.model.User;
 import com.projetoFinal.centralErros.service.UserService;
@@ -14,42 +15,45 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/user")
+@RequestMapping("/v1/user")
 public class UserController {
 
     private final UserService userService;
 
-    @PostMapping // acessar /user via POST para cadastrar um usuário
-    public ResponseEntity<HttpStatus> saveUser(@Valid @RequestBody User user){
-        userService.saveUser(user);
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping
+    public ResponseEntity<HttpStatus> saveUser(@Valid @RequestBody UserDTO userDTO) {
+        userService.saveUser(UserMapper.toUser(userDTO));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/{userId}") // acessar /user/id via PUT para atualizar um usuário
-    public ResponseEntity<HttpStatus> updateUser(@Valid @RequestBody User user, @PathVariable Long userId) {
+    @PutMapping("/{userId}")
+    public ResponseEntity<HttpStatus> updateUser(@Valid @RequestBody UserDTO userDTO, @PathVariable Long userId) {
+        User user = UserMapper.toUser(userDTO);
         user.setId(userId);
         userService.saveUser(user);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping // acessar /user via GET para listar todos os usuários
+    @GetMapping
     public ResponseEntity<List<User>> findAllUsers() {
-        return new ResponseEntity <>(UserMapper.toListUser(userService.findAllUsers()), HttpStatus.OK);
+        System.out.println("Acessado /api/v1/user");
+        return new ResponseEntity<>(UserMapper.toListUser(userService.findAllUsers()), HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}") // acessar /user/id via GET para listar um usuário
-    public ResponseEntity<User> findUserById(@PathVariable Long userId){
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> findUserById(@PathVariable Long userId) {
         return new ResponseEntity<>(UserMapper.toUser(userService.findUserById(userId)), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{userId}") // acessar /delete/id via DELETE para deletar um usuário
+    @DeleteMapping("/delete/{userId}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = "email") // acessar /user?email=EMAIL via GET para listar um usuário pelo seu e-mail
-    public ResponseEntity<User> findByEmail(@RequestParam(value="email", required = false) String email) {
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> findByEmail(@PathVariable String email) {
         return new ResponseEntity<>(UserMapper.toUser(userService.findByEmail(email)), HttpStatus.OK);
     }
 }
