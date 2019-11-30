@@ -51,7 +51,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("Central de erros API REST")
-                .description("Api que busca centralizar os erros de um determinado usuário. Trabalho desenvolvido como projeto final do curso AceleraDev da codenation com suporte da Softplan").termsOfServiceUrl("")
+                .description("API que centraliza o registro de erros de diversas aplicações. Trabalho desenvolvido como projeto final do curso AceleraDev da Codenation com apoio da Softplan").termsOfServiceUrl("")
                 .contact(new Contact("Squad Roupa de Sapo", "", ""))
                 .license("Apache License Version 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")

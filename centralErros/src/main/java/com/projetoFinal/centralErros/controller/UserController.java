@@ -21,13 +21,13 @@ public class UserController {
     private final UserService userService;
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping // acessar /user via POST para cadastrar um usuário
+    @PostMapping
     public ResponseEntity<HttpStatus> saveUser(@Valid @RequestBody UserDTO userDTO) {
         userService.saveUser(UserMapper.toUser(userDTO));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/{userId}") // acessar /user/id via PUT para atualizar um usuário
+    @PutMapping("/{userId}")
     public ResponseEntity<HttpStatus> updateUser(@Valid @RequestBody UserDTO userDTO, @PathVariable Long userId) {
         User user = UserMapper.toUser(userDTO);
         user.setId(userId);
@@ -35,24 +35,24 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping // acessar /user via GET para listar todos os usuários
+    @GetMapping
     public ResponseEntity<List<User>> findAllUsers() {
         System.out.println("Acessado /api/v1/user");
         return new ResponseEntity<>(UserMapper.toListUser(userService.findAllUsers()), HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}") // acessar /user/id via GET para listar um usuário
+    @GetMapping("/{userId}")
     public ResponseEntity<User> findUserById(@PathVariable Long userId) {
         return new ResponseEntity<>(UserMapper.toUser(userService.findUserById(userId)), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{userId}") // acessar /delete/id via DELETE para deletar um usuário
+    @DeleteMapping("/delete/{userId}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/email/{email}") // acessar /user/email/email via GET para listar um usuário pelo seu e-mail
+    @GetMapping("/email/{email}")
     public ResponseEntity<User> findByEmail(@PathVariable String email) {
         return new ResponseEntity<>(UserMapper.toUser(userService.findByEmail(email)), HttpStatus.OK);
     }
